@@ -41,8 +41,8 @@ if [ -f "configs/cursor/extensions.txt" ]; then
     exit 1
   fi
 
-  local success_count=0
-  local fail_count=0
+  success_count=0
+  fail_count=0
 
   while IFS= read -r extension || [ -n "$extension" ]; do
     # Skip empty lines and comments
