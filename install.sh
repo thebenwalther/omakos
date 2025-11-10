@@ -1,7 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Exit on error
 set -e
+
+# Color definitions
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
 
 # Check for required commands
 command -v curl >/dev/null 2>&1 || {
@@ -27,7 +33,7 @@ if [ -d "$INSTALL_DIR" ]; then
 fi
 
 echo -e "${BLUE}Downloading Omakos...${NC}"
-curl -L "https://github.com/yatish27/omakos/archive/refs/heads/main.zip" -o "$TEMP_ZIP"
+curl -L "https://github.com/thebenwalther/omakos/archive/refs/heads/main.zip" -o "$TEMP_ZIP"
 
 echo -e "${BLUE}Extracting files...${NC}"
 unzip -q "$TEMP_ZIP" -d "/tmp"

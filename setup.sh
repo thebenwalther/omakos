@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ###############################################################################
 # ERROR: Let the user know if the script fails
@@ -14,6 +14,9 @@ set -e
 
 # Source utility functions
 source ./scripts/utils.sh
+
+# Initialize chapter counter
+count=1
 
 chapter() {
   local fmt="$1"
@@ -59,14 +62,14 @@ if softwareupdate --history | grep --silent "Command Line Tools.*${os}"; then
 else
   step 'Installing Command-line tools...'
   in_progress=/tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-  touch ${in_progress}
+  touch "${in_progress}"
   product=$(softwareupdate --list | awk "/\* Command Line.*${os}/ { sub(/^   \* /, \"\"); print }")
   if ! softwareupdate --verbose --install "${product}"; then
     echo 'Installation failed.' 1>&2
-    rm ${in_progress}
+    rm "${in_progress}"
     exit 1
   fi
-  rm ${in_progress}
+  rm "${in_progress}"
   print_success 'Installation succeeded.'
 fi
 

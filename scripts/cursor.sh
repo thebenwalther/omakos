@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -25,7 +25,12 @@ fi
 
 # Copy new settings
 step "Installing Cursor settings..."
-cp configs/cursor/settings.json "$CURSOR_USER_DIR/settings.json"
+if [ ! -f "configs/cursor/settings.json" ]; then
+  print_warning "Settings file not found at configs/cursor/settings.json. Skipping."
+else
+  cp configs/cursor/settings.json "$CURSOR_USER_DIR/settings.json"
+  print_success_muted "Settings installed successfully!"
+fi
 
 # Install extensions
 step "Installing Cursor extensions..."
@@ -36,13 +41,29 @@ if [ -f "configs/cursor/extensions.txt" ]; then
     exit 1
   fi
 
+  local success_count=0
+  local fail_count=0
+
   while IFS= read -r extension || [ -n "$extension" ]; do
-    if [ ! -z "$extension" ]; then
-      print_muted "Installing extension: $extension"
-      "$CURSOR_PATH" --install-extension "$extension" >/dev/null 2>&1 || print_warning "Failed to install extension: $extension"
+    # Skip empty lines and comments
+    if [ -z "$extension" ] || [[ "$extension" =~ ^[[:space:]]*# ]]; then
+      continue
+    fi
+
+    print_muted "Installing extension: $extension"
+    if "$CURSOR_PATH" --install-extension "$extension" >/dev/null 2>&1; then
+      ((success_count++))
+    else
+      print_warning "Failed to install extension: $extension"
+      ((fail_count++))
     fi
   done <"configs/cursor/extensions.txt"
-  print_success_muted "Extensions installed successfully!"
+
+  if [ $fail_count -eq 0 ]; then
+    print_success_muted "All extensions installed successfully! ($success_count installed)"
+  else
+    print_warning "Extensions installation completed with errors. Success: $success_count, Failed: $fail_count"
+  fi
 else
   print_warning "Extensions file not found at configs/cursor/extensions.txt"
 fi
