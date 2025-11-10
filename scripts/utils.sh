@@ -423,8 +423,9 @@ symlink_dotfiles() {
 ask_for_sudo() {
 
   # Ask for the administrator password upfront.
+  # Don't redirect output so Touch ID prompt can appear
 
-  sudo -v &>/dev/null
+  sudo -v
 
   # Update existing `sudo` time stamp
   # until this script has finished.

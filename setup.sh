@@ -43,32 +43,6 @@ chapter "Checking internet connection…"
 check_internet_connection
 
 ###############################################################################
-# SETUP: Touch ID for sudo
-###############################################################################
-chapter "Enabling Touch ID for sudo authentication…"
-
-# Enable Touch ID for sudo by creating/updating sudo_local
-if [ ! -f /etc/pam.d/sudo_local ]; then
-  step "Setting up Touch ID authentication for sudo..."
-
-  # First sudo call - user will need to type password this one time
-  echo "# sudo_local: local config file which survives system updates" | sudo tee /etc/pam.d/sudo_local >/dev/null
-  echo "# Enable Touch ID authentication for sudo" | sudo tee -a /etc/pam.d/sudo_local >/dev/null
-  echo "auth       sufficient     pam_tid.so" | sudo tee -a /etc/pam.d/sudo_local >/dev/null
-
-  print_success "Touch ID enabled for sudo! You can now use your fingerprint for authentication."
-else
-  # Check if pam_tid.so is already configured
-  if grep -q "pam_tid.so" /etc/pam.d/sudo_local; then
-    print_success_muted "Touch ID already enabled for sudo"
-  else
-    step "Adding Touch ID to existing sudo_local..."
-    echo "auth       sufficient     pam_tid.so" | sudo tee -a /etc/pam.d/sudo_local >/dev/null
-    print_success "Touch ID enabled for sudo!"
-  fi
-fi
-
-###############################################################################
 # PROMPT: Password
 ###############################################################################
 chapter "Caching password…"
@@ -131,12 +105,6 @@ source ./scripts/brew.sh
 ###############################################################################
 chapter "Setting up ZSH with Starship…"
 source ./scripts/zsh.sh
-
-###############################################################################
-# SETUP: Cursor
-###############################################################################
-chapter "Setting up Cursor…"
-source ./scripts/cursor.sh
 
 ###############################################################################
 # SETUP: Neovim
