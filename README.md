@@ -202,6 +202,7 @@ omakos/
 │   ├── irbrc              # IRB (Interactive Ruby) configuration
 │   ├── mise.toml          # Mise runtime versions config
 │   ├── rubocop.yml        # Ruby code style config
+│   ├── starship.toml      # Starship prompt configuration
 │   └── zshrc              # Zsh shell configuration
 └── README.md
 ```
