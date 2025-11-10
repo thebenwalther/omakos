@@ -45,7 +45,8 @@ if [ "$gitconfig_setup" = true ]; then
 
   # Prompt for Git name with validation
   while true; do
-    read -p "Enter your Git display name: " git_name
+    echo -n "Enter your Git display name: "
+    read git_name </dev/tty
     if [ -n "$git_name" ]; then
       git config --global user.name "$git_name"
       print_success_muted "Git name set to: $git_name"
@@ -57,7 +58,8 @@ if [ "$gitconfig_setup" = true ]; then
 
   # Prompt for Git email with validation
   while true; do
-    read -p "Enter your Git email: " git_email
+    echo -n "Enter your Git email: "
+    read git_email </dev/tty
     if [ -n "$git_email" ] && echo "$git_email" | grep -qE '^[^@]+@[^@]+\.[^@]+$'; then
       git config --global user.email "$git_email"
       print_success_muted "Git email set to: $git_email"
