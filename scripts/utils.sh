@@ -323,7 +323,7 @@ get_os_version() {
 }
 
 check_internet_connection() {
-  if ! ping -q -w 1 -c 1 google.com &>/dev/null; then
+  if ! curl -s --connect-timeout 5 --max-time 10 https://www.google.com -o /dev/null; then
     print_error "Please check your internet connection"
     exit 1
   else
