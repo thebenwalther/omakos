@@ -101,9 +101,9 @@ chapter "Installing Homebrew Packages…"
 source ./scripts/brew.sh
 
 ###############################################################################
-# INSTALL: Setup ZSH and oh-my-zsh
+# INSTALL: Setup ZSH and Starship
 ###############################################################################
-chapter "Setting up ZSH…"
+chapter "Setting up ZSH with Starship…"
 source ./scripts/zsh.sh
 
 ###############################################################################

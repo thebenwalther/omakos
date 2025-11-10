@@ -58,7 +58,7 @@ All packages are managed through Homebrew and defined in [`configs/Brewfile`](co
 - [XCode Command Line Tools](https://developer.apple.com/xcode/downloads/) for developer essentials
 - [Git](https://git-scm.com/) for version control
 - [Homebrew](http://brew.sh/) for managing operating system libraries
-- [ZSH](https://www.zsh.org/) with [Oh My Zsh](https://ohmyz.sh/) for a better shell experience
+- [ZSH](https://www.zsh.org/) with [Starship](https://starship.rs/) prompt for a modern shell experience
 - [coreutils](https://www.gnu.org/software/coreutils/) for GNU file, shell and text manipulation utilities
 - [curl](https://curl.se/) and [wget](https://www.gnu.org/software/wget/) for downloading files
 - [fzf](https://github.com/junegunn/fzf) for command-line fuzzy finding
