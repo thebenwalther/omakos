@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -43,13 +43,31 @@ fi
 if [ "$gitconfig_setup" = true ]; then
   print_muted "Setting up Git user information..."
 
-  read -p "Enter your Git display name: " git_name
-  git config --global user.name "$git_name"
-  print_success_muted "Git name set to: $git_name"
+  # Prompt for Git name with validation
+  while true; do
+    read -p "Enter your Git display name: " git_name
+    if [ -n "$git_name" ]; then
+      git config --global user.name "$git_name"
+      print_success_muted "Git name set to: $git_name"
+      break
+    else
+      print_warning "Git name cannot be empty. Please try again."
+    fi
+  done
 
-  read -p "Enter your Git email: " git_email
-  git config --global user.email "$git_email"
-  print_success_muted "Git email set to: $git_email"
+  # Prompt for Git email with validation
+  while true; do
+    read -p "Enter your Git email: " git_email
+    if [ -n "$git_email" ] && echo "$git_email" | grep -qE '^[^@]+@[^@]+\.[^@]+$'; then
+      git config --global user.email "$git_email"
+      print_success_muted "Git email set to: $git_email"
+      break
+    elif [ -z "$git_email" ]; then
+      print_warning "Git email cannot be empty. Please try again."
+    else
+      print_warning "Invalid email format. Please enter a valid email address."
+    fi
+  done
 
   print_success "Git setup completed!"
 else

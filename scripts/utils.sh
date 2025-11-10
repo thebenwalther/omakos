@@ -140,7 +140,7 @@ _link_file() {
 
     if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
 
-      local currentSrc="$(readlink $dst)"
+      local currentSrc="$(readlink "$dst")"
 
       if [ "$currentSrc" == "$src" ]; then
 
@@ -323,9 +323,9 @@ get_os_version() {
 }
 
 check_internet_connection() {
-  if [ ping -q -w1 -c1 google.com ] &>/dev/null; then
+  if ! ping -q -w 1 -c 1 google.com &>/dev/null; then
     print_error "Please check your internet connection"
-    exit 0
+    exit 1
   else
     print_success "Internet connection"
   fi

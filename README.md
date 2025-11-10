@@ -21,7 +21,7 @@ You can install Omakos using one of these two methods:
 Run this single command in your terminal:
 
 ```sh
-curl -L https://raw.githubusercontent.com/yatish27/omakos/main/install.sh | bash
+curl -L https://raw.githubusercontent.com/thebenwalther/omakos/main/install.sh | bash
 ```
 
 ### Option 2: Manual Install
@@ -31,7 +31,7 @@ If you prefer to review the code first:
 1. Download the repo:
 
 ```sh
-git clone https://github.com/yatish27/omakos.git && cd omakos
+git clone https://github.com/thebenwalther/omakos.git && cd omakos
 ```
 
 2. Review the scripts (please don't run scripts you don't understand):
@@ -58,7 +58,7 @@ All packages are managed through Homebrew and defined in [`configs/Brewfile`](co
 - [XCode Command Line Tools](https://developer.apple.com/xcode/downloads/) for developer essentials
 - [Git](https://git-scm.com/) for version control
 - [Homebrew](http://brew.sh/) for managing operating system libraries
-- [ZSH](https://www.zsh.org/) with [Oh My Zsh](https://ohmyz.sh/) for a better shell experience
+- [ZSH](https://www.zsh.org/) with [Starship](https://starship.rs/) prompt for a modern shell experience
 - [coreutils](https://www.gnu.org/software/coreutils/) for GNU file, shell and text manipulation utilities
 - [curl](https://curl.se/) and [wget](https://www.gnu.org/software/wget/) for downloading files
 - [fzf](https://github.com/junegunn/fzf) for command-line fuzzy finding
@@ -202,6 +202,7 @@ omakos/
 │   ├── irbrc              # IRB (Interactive Ruby) configuration
 │   ├── mise.toml          # Mise runtime versions config
 │   ├── rubocop.yml        # Ruby code style config
+│   ├── starship.toml      # Starship prompt configuration
 │   └── zshrc              # Zsh shell configuration
 └── README.md
 ```

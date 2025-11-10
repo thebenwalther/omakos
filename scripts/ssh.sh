@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -17,6 +17,8 @@ fi
 step "Copying SSH config..."
 if [ -f "$HOME/.ssh/config" ]; then
   print_success_muted "SSH config already exists. Skipping."
+elif [ ! -f "./configs/ssh/config" ]; then
+  print_warning "SSH config template not found at ./configs/ssh/config. Skipping."
 else
   cp ./configs/ssh/config "$HOME/.ssh/config"
   chmod 600 "$HOME/.ssh/config"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -104,6 +104,8 @@ print_success_muted "Apple Intelligence disabled"
 
 # Restart affected applications
 step "Applying changes by restarting system components..."
+print_warning "Dock, Finder, and SystemUIServer will be restarted to apply settings."
+sleep 1
 killall Dock
 killall Finder
 killall SystemUIServer
