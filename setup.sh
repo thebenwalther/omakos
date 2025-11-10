@@ -50,16 +50,23 @@ chapter "Enabling Touch ID for sudo authentication…"
 # Enable Touch ID for sudo by creating/updating sudo_local
 if [ ! -f /etc/pam.d/sudo_local ]; then
   step "Setting up Touch ID authentication for sudo..."
+  print_muted "You may be prompted for your password or Touch ID..."
 
-  # First sudo call - user will need to type password this one time
-  echo "# sudo_local: local config file which survives system updates" | sudo tee /etc/pam.d/sudo_local >/dev/null
-  echo "# Enable Touch ID authentication for sudo" | sudo tee -a /etc/pam.d/sudo_local >/dev/null
-  echo "auth       sufficient     pam_tid.so" | sudo tee -a /etc/pam.d/sudo_local >/dev/null
+  # Create sudo_local file - don't redirect output so Touch ID prompt can appear
+  sudo bash -c 'cat > /etc/pam.d/sudo_local << EOF
+# sudo_local: local config file which survives system updates
+# Enable Touch ID authentication for sudo
+auth       sufficient     pam_tid.so
+EOF'
 
-  print_success "Touch ID enabled for sudo! You can now use your fingerprint for authentication."
+  if [ $? -eq 0 ]; then
+    print_success "Touch ID enabled for sudo! You can now use your fingerprint."
+  else
+    print_warning "Touch ID setup failed, but will continue with password authentication"
+  fi
 else
   # Check if pam_tid.so is already configured
-  if grep -q "pam_tid.so" /etc/pam.d/sudo_local; then
+  if grep -q "pam_tid.so" /etc/pam.d/sudo_local 2>/dev/null; then
     print_success_muted "Touch ID already enabled for sudo"
   else
     step "Adding Touch ID to existing sudo_local..."
