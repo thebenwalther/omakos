@@ -71,7 +71,6 @@ All packages are managed through Homebrew and defined in [`configs/Brewfile`](co
 
 ### Development Environment
 
-- [Cursor](https://cursor.sh/) - AI-powered code editor
 - [Neovim](https://neovim.io/) with [LazyVim](https://www.lazyvim.org/) - Modern Vim-based editor
 - [Zed](https://zed.dev/) - High-performance code editor
 - [Ghostty](https://github.com/mitchellh/ghostty) - Modern terminal emulator
@@ -94,22 +93,14 @@ All packages are managed through Homebrew and defined in [`configs/Brewfile`](co
 
 ### Productivity & Communication
 
-- [1Password](https://1password.com/) for password management
 - [Brave Browser](https://brave.com/) for web browsing
 - [ChatGPT](https://chat.openai.com/) for AI assistance
 - [Claude](https://claude.ai/) for AI assistance
 - [Discord](https://discord.com/) for communication
-- [IINA](https://iina.io/) for media playback
-- [iTerm2](https://iterm2.com/) for terminal emulation
 - [LocalSend](https://localsend.org/) for cross-platform file sharing
-- [NetNewsWire](https://netnewswire.com/) for RSS reading
-- [Obsidian](https://obsidian.md/) for note-taking
 - [PearCleaner](https://www.pearcleaner.com/) for app uninstallation
-- [Raycast](https://www.raycast.com/) for productivity launcher
 - [Rectangle](https://rectangleapp.com/) for window management
 - [Slack](https://slack.com/) for team communication
-- [SuperWhisper](https://superwhisper.com/) for voice transcription
-- [WhatsApp](https://www.whatsapp.com/) for messaging
 - [Zoom](https://zoom.us/) for video conferencing
 
 ### Fonts
@@ -149,7 +140,6 @@ Each script in the [`scripts/`](scripts/) directory can be run independently:
 # Run individual scripts
 ./scripts/mac.sh       # Only configure macOS settings
 ./scripts/git.sh       # Only setup Git configuration
-./scripts/cursor.sh    # Only configure Cursor editor
 ./scripts/nvim.sh      # Only configure Neovim with LazyVim
 ./scripts/zed.sh       # Only configure Zed editor
 ./scripts/mise.sh      # Only setup mise and install configured runtimes
@@ -176,7 +166,6 @@ omakos/
 ├── scripts/
 │   ├── ascii.sh            # ASCII art for terminal output
 │   ├── brew.sh             # Homebrew package installation
-│   ├── cursor.sh           # Cursor editor configuration
 │   ├── gemrc.sh            # Gem configuration
 │   ├── ghostty.sh          # Ghostty terminal configuration
 │   ├── git.sh              # Git configuration
@@ -192,7 +181,6 @@ omakos/
 │   └── zshrc.sh            # Zshrc configuration
 ├── configs/
 │   ├── Brewfile            # Homebrew packages list
-│   ├── cursor/             # Cursor editor settings
 │   ├── git/                # Git configuration files
 │   ├── nvim/               # Neovim configuration with LazyVim
 │   ├── ssh/                # SSH configuration files
