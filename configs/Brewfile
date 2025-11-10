@@ -41,7 +41,6 @@ brew "zoxide"
 brew "zsh"
 
 # Cask applications
-cask "alacritty"
 cask "asana"
 cask "blockblock"
 cask "brave-browser"
