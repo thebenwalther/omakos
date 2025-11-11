@@ -58,4 +58,20 @@ else
   print_warning "Starship configuration file not found at configs/starship.toml"
 fi
 
+# Setup ZSH plugins directory
+if [ -d "./configs/zsh/plugins" ]; then
+  step "Setting up ZSH plugins..."
+  mkdir -p "$HOME/.config/zsh/plugins"
+
+  # Check if there are any plugin files to copy
+  if [ -n "$(ls -A ./configs/zsh/plugins/*.zsh 2>/dev/null)" ]; then
+    cp ./configs/zsh/plugins/*.zsh "$HOME/.config/zsh/plugins/" 2>/dev/null || true
+    print_success "ZSH plugins installed"
+  else
+    print_success_muted "ZSH plugins directory created (no plugins to install yet)"
+  fi
+else
+  print_muted "No ZSH plugins directory found. You can add plugins to configs/zsh/plugins/ later."
+fi
+
 print_success "ZSH with Starship setup completed!"

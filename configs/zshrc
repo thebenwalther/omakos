@@ -1,6 +1,13 @@
 # Initialize Starship prompt
 eval "$(starship init zsh)"
 
+# Load ZSH plugins
+if [ -d "$HOME/.config/zsh/plugins" ]; then
+  for plugin in "$HOME/.config/zsh/plugins"/*.zsh; do
+    [ -f "$plugin" ] && source "$plugin"
+  done
+fi
+
 # Homebrew configuration
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
