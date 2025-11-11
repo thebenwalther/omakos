@@ -58,20 +58,67 @@ else
   print_warning "Starship configuration file not found at configs/starship.toml"
 fi
 
-# Setup ZSH plugins directory
-if [ -d "./configs/zsh/plugins" ]; then
-  step "Setting up ZSH plugins..."
-  mkdir -p "$HOME/.config/zsh/plugins"
+# Setup ZSH configuration structure
+step "Setting up ZSH configuration..."
 
-  # Check if there are any plugin files to copy
-  if [ -n "$(ls -A ./configs/zsh/plugins/*.zsh 2>/dev/null)" ]; then
-    cp ./configs/zsh/plugins/*.zsh "$HOME/.config/zsh/plugins/" 2>/dev/null || true
-    print_success "ZSH plugins installed"
+# Copy .zshenv to home directory (sets ZDOTDIR to ~/.zsh)
+if [ -f "./configs/zsh/.zshenv" ]; then
+  if [ ! -f "$HOME/.zshenv" ]; then
+    cp "./configs/zsh/.zshenv" "$HOME/.zshenv"
+    print_success_muted "~/.zshenv created"
+  elif files_are_identical "$HOME/.zshenv" "./configs/zsh/.zshenv"; then
+    print_success_muted "~/.zshenv already up to date"
+  elif confirm_override "$HOME/.zshenv" "./configs/zsh/.zshenv" ".zshenv"; then
+    cp "./configs/zsh/.zshenv" "$HOME/.zshenv"
+    print_success_muted "~/.zshenv updated"
   else
-    print_success_muted "ZSH plugins directory created (no plugins to install yet)"
+    print_muted "Skipping .zshenv"
   fi
 else
-  print_muted "No ZSH plugins directory found. You can add plugins to configs/zsh/plugins/ later."
+  print_warning ".zshenv not found in configs/zsh/"
+fi
+
+# Copy bootstrap .zshrc to home directory
+if [ -f "./configs/zsh/.zshrc" ]; then
+  if [ ! -f "$HOME/.zshrc" ]; then
+    cp "./configs/zsh/.zshrc" "$HOME/.zshrc"
+    print_success_muted "~/.zshrc created"
+  elif files_are_identical "$HOME/.zshrc" "./configs/zsh/.zshrc"; then
+    print_success_muted "~/.zshrc already up to date"
+  elif confirm_override "$HOME/.zshrc" "./configs/zsh/.zshrc" ".zshrc"; then
+    cp "./configs/zsh/.zshrc" "$HOME/.zshrc"
+    print_success_muted "~/.zshrc updated"
+  else
+    print_muted "Skipping .zshrc"
+  fi
+else
+  print_warning ".zshrc not found in configs/zsh/"
+fi
+
+# Copy the entire ~/.zsh directory structure
+if [ -d "./configs/zsh/zsh" ]; then
+  mkdir -p "$HOME/.zsh"
+
+  # Copy all subdirectories and files
+  if [ -d "./configs/zsh/zsh/config" ]; then
+    mkdir -p "$HOME/.zsh/config"
+    cp -r ./configs/zsh/zsh/config/* "$HOME/.zsh/config/" 2>/dev/null || true
+    print_success_muted "ZSH config files copied"
+  fi
+
+  if [ -d "./configs/zsh/zsh/plugins" ]; then
+    mkdir -p "$HOME/.zsh/plugins"
+    cp -r ./configs/zsh/zsh/plugins/* "$HOME/.zsh/plugins/" 2>/dev/null || true
+    print_success_muted "ZSH plugin loader copied"
+  fi
+
+  # Copy .zprofile and main .zshrc
+  [ -f "./configs/zsh/zsh/.zprofile" ] && cp "./configs/zsh/zsh/.zprofile" "$HOME/.zsh/.zprofile"
+  [ -f "./configs/zsh/zsh/.zshrc" ] && cp "./configs/zsh/zsh/.zshrc" "$HOME/.zsh/.zshrc"
+
+  print_success "ZSH configuration installed to ~/.zsh/"
+else
+  print_warning "ZSH configuration directory not found at configs/zsh/zsh/"
 fi
 
 print_success "ZSH with Starship setup completed!"

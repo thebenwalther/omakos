@@ -1,9 +1,0 @@
-# ZSH Plugins Directory
-
-# Add your custom ZSH plugin files here with .zsh extension
-# They will be automatically loaded by zshrc
-
-# Example plugin structure:
-# - custom-aliases.zsh
-# - docker-helpers.zsh
-# - git-shortcuts.zsh
