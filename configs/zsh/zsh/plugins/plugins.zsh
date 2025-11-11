@@ -37,5 +37,7 @@ fi
 
 ### ---- Completion system -----------------------------------
 # Load compinit once after all plugins
+# Using -u flag to skip security check for Homebrew directories
+# (Safe for single-user systems; Homebrew dirs are often group-writable)
 autoload -U compinit
-compinit
+compinit -u
