@@ -6,6 +6,9 @@ export CPPFLAGS="-I$(brew --prefix libyaml)/include"
 export RUBY_YJIT_ENABLE=1
 export RUBY_CONFIGURE_OPTS=--enable-yjit
 
+# Mise configuration
+export MISE_LOG_LEVEL=warn
+
 # PostgreSQL configuration
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 export PGGSSENCMODE="disable"
