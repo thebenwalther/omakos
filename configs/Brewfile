@@ -39,6 +39,8 @@ brew "wget"
 brew "yadm"
 brew "zoxide"
 brew "zsh"
+brew "zsh-autosuggestions"
+brew "zsh-fast-syntax-highlighting"
 
 # Cask applications
 cask "asana"
