@@ -3,7 +3,7 @@
 # Omakos
 
 > Omakos turns your macOS laptop into a fully functional development machine in a single command.
-> A shell script to setup a new mac.
+> A shell script to setup a new mac. This is an adaptation of (https://github.com/yatish27/omakos by Yatish Mehta) to fit my needs.
 
 Omakos is inspired by Basecamp's [Omakub](https://github.com/basecamp/omakub) project. The name is a combination of "omakase" (お任せ, Japanese for "I leave it up to you") and "macOS", reflecting its purpose of providing a curated development environment setup for macOS.
 
