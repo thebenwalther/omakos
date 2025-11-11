@@ -5,6 +5,13 @@ set -e
 # Source utility functions
 source ./scripts/utils.sh
 
+# Initialize git submodules (for plugins like zsh-abbr)
+if [ -f ".gitmodules" ]; then
+  step "Initializing ZSH plugin submodules..."
+  git submodule update --init --recursive configs/zsh/zsh/plugins/ 2>/dev/null || true
+  print_success_muted "Plugin submodules initialized"
+fi
+
 # set zsh as default shell
 if ! command -v zsh &>/dev/null; then
   print_error "ZSH is not installed. Please ensure it's installed via Homebrew first."

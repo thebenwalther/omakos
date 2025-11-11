@@ -31,11 +31,19 @@ if [ -f "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; 
 fi
 
 ### ---- Manual plugins from ~/.zsh/plugins/ -----------------------------------
-# Add manual plugin sources here if you clone repos to ~/.zsh/plugins/
+
+# zsh-abbr - Fish-like abbreviation expansion
+if [ -f "$ZSH/plugins/zsh-abbr/zsh-abbr.zsh" ]; then
+  source "$ZSH/plugins/zsh-abbr/zsh-abbr.zsh"
+fi
+
+# Add more manual plugin sources here if needed
 # Example:
 # [ -f $ZSH/plugins/plugin-name/plugin-name.zsh ] && source $ZSH/plugins/plugin-name/plugin-name.zsh
 
 ### ---- Completion system -----------------------------------
 # Load compinit once after all plugins
+# Using -u flag to skip security check for Homebrew directories
+# (Safe for single-user systems; Homebrew dirs are often group-writable)
 autoload -U compinit
-compinit
+compinit -u

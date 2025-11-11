@@ -42,6 +42,14 @@ rm -f "$TEMP_ZIP"
 
 cd "$INSTALL_DIR"
 
+# Initialize git repository and submodules for plugins
+echo -e "${BLUE}Initializing git submodules...${NC}"
+git init -q
+git remote add origin https://github.com/thebenwalther/omakos.git
+git fetch -q origin main
+git reset -q --hard origin/main
+git submodule update --init --recursive 2>/dev/null || echo -e "${BLUE}Note: Some submodules may not be available${NC}"
+
 # Make setup script executable
 chmod +x setup.sh
 
