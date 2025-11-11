@@ -109,6 +109,21 @@ step "Disabling Apple Intelligence..."
 defaults write com.apple.CloudSubscriptionFeatures.optIn "545129924" -bool "false"
 print_success_muted "Apple Intelligence disabled"
 
+###############################################################################
+# Screen                                                                      #
+###############################################################################
+
+# Require password immediately after sleep or screen saver begins
+step "Configuring screen saver security settings..."
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+print_success_muted "Screen saver password requirements configured"
+
+# Set the display sleep time to 15 minutes
+step "Setting display sleep time to 15 minutes..."
+sudo systemsetup -setdisplaysleep 15
+print_success_muted "Display sleep time configured"
+
 # Restart affected applications
 step "Applying changes by restarting system components..."
 print_warning "Dock, Finder, and SystemUIServer will be restarted to apply settings."
