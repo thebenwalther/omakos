@@ -102,6 +102,16 @@ else
   print_warning ".zshrc not found in configs/zsh/"
 fi
 
+# Copy .hushlogin to suppress login messages
+if [ -f "./configs/zsh/.hushlogin" ]; then
+  if [ ! -f "$HOME/.hushlogin" ]; then
+    cp "./configs/zsh/.hushlogin" "$HOME/.hushlogin"
+    print_success_muted "~/.hushlogin created (login messages suppressed)"
+  fi
+else
+  print_warning ".hushlogin not found in configs/zsh/"
+fi
+
 # Copy the entire ~/.zsh directory structure
 if [ -d "./configs/zsh/zsh" ]; then
   mkdir -p "$HOME/.zsh"
