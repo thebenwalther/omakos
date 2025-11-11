@@ -216,5 +216,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Inspiration and code was taken from many sources, including:
 
+- [Omakos](https://github.com/yatish27/omakos) by Yatish Mehta - adapted his creation to fit my needs
 - [Formation](https://github.com/minamarkham/formation) by Mina Markham
 - [Omakub](https://github.com/basecamp/omakub)
