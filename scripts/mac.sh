@@ -41,6 +41,7 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
 print_success_muted "System preferences configured"
 
 # Text and input preferences
