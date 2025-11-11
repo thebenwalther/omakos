@@ -42,32 +42,11 @@ rm -f "$TEMP_ZIP"
 
 cd "$INSTALL_DIR"
 
-# Initialize git repository and submodules for plugins
-echo -e "${BLUE}Initializing git submodules...${NC}"
-git init -q
-git remote add origin https://github.com/thebenwalther/omakos.git
-git fetch -q origin main
-git reset -q --hard origin/main
-git submodule update --init --recursive 2>/dev/null || echo -e "${BLUE}Note: Some submodules may not be available${NC}"
-
 # Make setup script executable
 chmod +x setup.sh
 
 echo -e "
 ${GREEN}✓ Download complete!${NC}"
-
-# Setup Touch ID for sudo (only works when running directly in Terminal)
-echo -e "${BLUE}Setting up Touch ID for sudo authentication...${NC}"
-if [ -f /etc/pam.d/sudo_local.template ]; then
-  if sed -e 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee /etc/pam.d/sudo_local >/dev/null 2>&1; then
-    echo -e "${GREEN}✓ Touch ID enabled for sudo${NC}"
-  else
-    echo -e "${BLUE}Note: Touch ID setup skipped (will use password authentication)${NC}"
-  fi
-else
-  echo -e "${BLUE}Note: Touch ID template not found (will use password authentication)${NC}"
-fi
-
 echo -e "${BLUE}Starting setup...${NC}
 "
 

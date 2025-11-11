@@ -6,10 +6,21 @@ set -e
 source ./scripts/utils.sh
 
 # Initialize git submodules (for plugins like zsh-abbr)
-if [ -f ".gitmodules" ]; then
+if [ -f ".gitmodules" ] && command -v git &>/dev/null; then
+  # Initialize git repo if not already done (for zip downloads)
+  if [ ! -d ".git" ]; then
+    step "Initializing git repository for submodules..."
+    git init -q
+    git remote add origin https://github.com/thebenwalther/omakos.git 2>/dev/null || true
+    print_success_muted "Git repository initialized"
+  fi
+
   step "Initializing ZSH plugin submodules..."
   git submodule update --init --recursive configs/zsh/zsh/plugins/ 2>/dev/null || true
   print_success_muted "Plugin submodules initialized"
+elif [ -f ".gitmodules" ]; then
+  print_warning "Git not available. Plugin submodules (like zsh-abbr) will not be initialized."
+  print_warning "You can manually initialize them later with: git submodule update --init --recursive"
 fi
 
 # set zsh as default shell

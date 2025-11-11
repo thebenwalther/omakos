@@ -74,6 +74,34 @@ else
 fi
 
 # -----------------------------------------------------------------------------
+# Touch ID for sudo
+# -----------------------------------------------------------------------------
+step "Setting up Touch ID for sudo authentication..."
+if [ -f /etc/pam.d/sudo_local.template ]; then
+  if sed -e 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee /etc/pam.d/sudo_local >/dev/null 2>&1; then
+    print_success "Touch ID enabled for sudo"
+  else
+    print_muted "Touch ID setup skipped (will use password authentication)"
+  fi
+else
+  print_muted "Touch ID template not found (will use password authentication)"
+fi
+
+# -----------------------------------------------------------------------------
+# Git Repository Initialization (for submodules)
+# -----------------------------------------------------------------------------
+# Initialize git repo if this was installed via zip download
+# This allows submodules (like zsh-abbr) to be properly initialized later
+if [ ! -d ".git" ] && [ -f ".gitmodules" ] && command -v git &>/dev/null; then
+  step "Initializing git repository for submodules..."
+  git init -q
+  git remote add origin https://github.com/thebenwalther/omakos.git 2>/dev/null || true
+  print_success_muted "Git repository initialized"
+elif [ ! -d ".git" ] && [ -f ".gitmodules" ]; then
+  print_warning "Git not available yet. Submodules will be initialized when ZSH setup runs."
+fi
+
+# -----------------------------------------------------------------------------
 # Homebrew
 # -----------------------------------------------------------------------------
 if ! [ -x "$(command -v brew)" ]; then
