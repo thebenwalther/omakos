@@ -8,6 +8,13 @@ source ./scripts/utils.sh
 # Set macOS preferences
 step "Customizing macOS system preferences..."
 
+# Set computer name (as done via System Preferences → Sharing)
+COMPUTER_NAME="Bizarro"
+sudo scutil --set ComputerName "${COMPUTER_NAME}"
+sudo scutil --set HostName "${COMPUTER_NAME}"
+sudo scutil --set LocalHostName "${COMPUTER_NAME}"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${COMPUTER_NAME}"
+
 # Keyboard settings
 step "Setting faster keyboard repeat rates..."
 defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
@@ -34,6 +41,7 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
 print_success_muted "System preferences configured"
 
 # Text and input preferences
@@ -89,18 +97,26 @@ defaults write com.apple.dock springboard-show-duration -int 0
 defaults write com.apple.dock springboard-hide-duration -int 0
 defaults write com.apple.dock springboard-page-duration -int 0
 defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-others -array
+defaults write com.apple.dock mineffect -string "scale"
 defaults write com.apple.dock mru-spaces -bool false
+defaults write com.apple.dock "show-recents" -bool false
 print_success_muted "Dock preferences configured"
 
-# iCloud default save
-step "Setting default save location to local disk instead of iCloud..."
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
-print_success_muted "Default save location configured"
+###############################################################################
+# Screen                                                                      #
+###############################################################################
 
-# Disable Apple Intelligence
-step "Disabling Apple Intelligence..."
-defaults write com.apple.CloudSubscriptionFeatures.optIn "545129924" -bool "false"
-print_success_muted "Apple Intelligence disabled"
+# Require password immediately after sleep or screen saver begins
+step "Configuring screen saver security settings..."
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+print_success_muted "Screen saver password requirements configured"
+
+# Set the display sleep time to 15 minutes
+step "Setting display sleep time to 15 minutes..."
+sudo systemsetup -setdisplaysleep 15
+print_success_muted "Display sleep time configured"
 
 # Restart affected applications
 step "Applying changes by restarting system components..."
