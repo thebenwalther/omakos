@@ -74,6 +74,18 @@ else
 fi
 
 # -----------------------------------------------------------------------------
+# Git Repository Initialization (for submodules)
+# -----------------------------------------------------------------------------
+# Initialize git repo if this was installed via zip download
+# This allows submodules (like zsh-abbr) to be properly initialized later
+if [ ! -d ".git" ] && [ -f ".gitmodules" ]; then
+  step "Initializing git repository for submodules..."
+  git init -q
+  git remote add origin https://github.com/thebenwalther/omakos.git 2>/dev/null || true
+  print_success_muted "Git repository initialized"
+fi
+
+# -----------------------------------------------------------------------------
 # Homebrew
 # -----------------------------------------------------------------------------
 if ! [ -x "$(command -v brew)" ]; then
