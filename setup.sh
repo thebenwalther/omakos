@@ -37,34 +37,6 @@ printf "You can cancel at any time by pressing ctrl+c.\n"
 printf "Let's get started!\n"
 
 ###############################################################################
-# CHECK: Full Disk Access
-###############################################################################
-chapter "Checking Full Disk Access…"
-
-# Test if Terminal has Full Disk Access by trying to read a protected location
-if ! plutil -p ~/Library/Safari/Bookmarks.plist >/dev/null 2>&1; then
-  print_warning "Terminal.app does not have Full Disk Access"
-  printf "\n${bold}Full Disk Access is required for Omakos to work properly.${normal}\n"
-  printf "\n${bold}Follow these steps:${normal}\n"
-  printf "  1. System Settings will open to Privacy & Security\n"
-  printf "  2. Scroll down and click 'Full Disk Access' on the left\n"
-  printf "  3. Click the '+' button\n"
-  printf "  4. Navigate to Applications/Utilities and select Terminal.app\n"
-  printf "  5. Toggle Terminal.app ON in the list\n"
-  printf "  6. Quit Terminal completely (⌘Q)\n"
-  printf "  7. Reopen Terminal and run this script again\n\n"
-
-  # Open System Settings to Privacy & Security
-  open "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles"
-
-  printf "${bold}Press any key to exit after you've granted Full Disk Access...${normal}\n"
-  read -n 1 -s
-  exit 0
-else
-  print_success "Terminal has Full Disk Access"
-fi
-
-###############################################################################
 # CHECK: Internet
 ###############################################################################
 chapter "Checking internet connection…"
