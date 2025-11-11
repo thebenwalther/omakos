@@ -97,6 +97,7 @@ defaults write com.apple.dock springboard-hide-duration -int 0
 defaults write com.apple.dock springboard-page-duration -int 0
 defaults write com.apple.dock persistent-apps -array
 defaults write com.apple.dock mru-spaces -bool false
+defaults write com.apple.dock "show-recents" -bool false
 print_success_muted "Dock preferences configured"
 
 # iCloud default save
