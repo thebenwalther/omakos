@@ -1,0 +1,3 @@
+[submodule "configs/zsh/zsh/plugins/zsh-abbr"]
+	path = configs/zsh/zsh/plugins/zsh-abbr
+	url = https://github.com/olets/zsh-abbr.git
