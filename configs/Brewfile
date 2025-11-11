@@ -55,7 +55,7 @@ cask "ghostty"
 cask "hiddenbar"
 cask "itsycal"
 cask "knockknock"
-cask "ledger-live"
+#cask "ledger-live"
 cask "localsend"
 cask "logi-options+"
 cask "lulu"
@@ -68,7 +68,7 @@ cask "notion"
 cask "orbstack"
 cask "pearcleaner"
 cask "postman"
-cask "ransomwhere"
+#cask "ransomwhere"
 cask "rectangle"
 cask "shottr"
 cask "silentknight"
@@ -99,10 +99,10 @@ cask "font-roboto-mono-nerd-font"
 cask "font-work-sans"
 
 # Mac App Store applications
-mas "Adblock Plus", id: 1432731683
-mas "Bear", id: 1091189122
-mas "Bitwarden", id: 1352778147
-mas "Flighty", id: 1358823008
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "Pixelmator Pro", id: 1289583905
+#mas "Adblock Plus", id: 1432731683
+#mas "Bear", id: 1091189122
+#mas "Bitwarden", id: 1352778147
+#mas "Flighty", id: 1358823008
+#mas "Numbers", id: 409203825
+#mas "Pages", id: 409201541
+#mas "Pixelmator Pro", id: 1289583905
