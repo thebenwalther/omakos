@@ -101,16 +101,6 @@ defaults write com.apple.dock mru-spaces -bool false
 defaults write com.apple.dock "show-recents" -bool false
 print_success_muted "Dock preferences configured"
 
-# iCloud default save
-step "Setting default save location to local disk instead of iCloud..."
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
-print_success_muted "Default save location configured"
-
-# Disable Apple Intelligence
-step "Disabling Apple Intelligence..."
-defaults write com.apple.CloudSubscriptionFeatures.optIn "545129924" -bool "false"
-print_success_muted "Apple Intelligence disabled"
-
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
