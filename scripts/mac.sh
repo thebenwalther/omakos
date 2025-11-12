@@ -29,9 +29,10 @@ defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
-defaults write com.apple.finder NewWindowTarget -string "PfHm"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+defaults write com.apple.finder NewWindowTarget -string "PfDo"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Documents/"
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+defaults write com.apple.finder FinderSpawnTab -bool false
 print_success_muted "Finder preferences configured"
 
 # System preferences
@@ -43,6 +44,41 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeF
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
 print_success_muted "System preferences configured"
+
+# UI and appearance settings
+step "Configuring UI and appearance settings..."
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+defaults write NSGlobalDomain AppleScrollerPagingBehavior -bool true
+defaults write NSGlobalDomain AppleReduceDesktopTinting -bool true
+print_success_muted "UI and appearance settings configured"
+
+# Display settings
+step "Configuring display settings..."
+# Turn off True Tone
+sudo defaults write /Library/Preferences/com.apple.CoreBrightness.user TrueTone -bool false 2>/dev/null || print_muted "True Tone setting may require manual configuration"
+# Turn off auto brightness
+sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Display Enabled" -bool false 2>/dev/null || print_muted "Auto brightness may require manual configuration"
+# Turn off dim display on battery
+sudo pmset -b lessbright 0 2>/dev/null || print_muted "Battery dimming may require manual configuration"
+print_success_muted "Display settings configured"
+
+# Spaces and Mission Control
+step "Configuring Spaces and Mission Control..."
+# Turn off hot corners (all 4 corners set to 0 = no action)
+defaults write com.apple.dock wvous-tl-corner -int 0
+defaults write com.apple.dock wvous-tl-modifier -int 0
+defaults write com.apple.dock wvous-tr-corner -int 0
+defaults write com.apple.dock wvous-tr-modifier -int 0
+defaults write com.apple.dock wvous-bl-corner -int 0
+defaults write com.apple.dock wvous-bl-modifier -int 0
+defaults write com.apple.dock wvous-br-corner -int 0
+defaults write com.apple.dock wvous-br-modifier -int 0
+print_success_muted "Spaces and Mission Control configured"
+
+# Language & Region
+step "Configuring Language & Region settings..."
+defaults write NSGlobalDomain AppleFirstWeekday -dict gregorian 2
+print_success_muted "First day of week set to Monday"
 
 # Text and input preferences
 step "Configuring enhanced text and input settings..."
@@ -90,6 +126,7 @@ print_success_muted "Library folder made visible"
 
 # Dock settings
 step "Removing Dock animation delays and clearing default apps..."
+defaults write com.apple.dock autohide -bool true
 defaults write com.apple.Dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0
 defaults write com.apple.dock expose-animation-duration -float 0.1
@@ -108,15 +145,16 @@ print_success_muted "Dock preferences configured"
 ###############################################################################
 
 # Require password immediately after sleep or screen saver begins
-step "Configuring screen saver security settings..."
+step "Configuring screen saver and lock screen security settings..."
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 print_success_muted "Screen saver password requirements configured"
 
-# Set the display sleep time to 15 minutes
-step "Setting display sleep time to 15 minutes..."
-sudo systemsetup -setdisplaysleep 15
-print_success_muted "Display sleep time configured"
+# Set the display sleep time (10 minutes on battery, 10 minutes on power adapter)
+step "Setting display sleep time to 10 minutes..."
+sudo pmset -b displaysleep 10
+sudo pmset -c displaysleep 10
+print_success_muted "Display sleep time configured (10 min battery/power)"
 
 # Restart affected applications
 step "Applying changes by restarting system components..."
