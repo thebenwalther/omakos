@@ -77,8 +77,8 @@ print_success_muted "Spaces and Mission Control configured"
 
 # Language & Region
 step "Configuring Language & Region settings..."
-defaults write NSGlobalDomain AppleFirstWeekday -dict gregorian 2
-print_success_muted "First day of week set to Monday"
+defaults write NSGlobalDomain AppleFirstWeekday '{ gregorian = 2; }'
+print_success_muted "First day of week set to Monday (may require logout/login)"
 
 # Text and input preferences
 step "Configuring enhanced text and input settings..."
