@@ -140,11 +140,6 @@ defaults write com.apple.dock mru-spaces -bool false
 defaults write com.apple.dock "show-recents" -bool false
 print_success_muted "Dock preferences configured"
 
-# Stage Manager settings
-step "Configuring Stage Manager settings..."
-defaults write com.apple.WindowManager ShowDesktopGestureEnabled -bool true
-print_success_muted "Stage Manager: Show Desktop on click enabled"
-
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
